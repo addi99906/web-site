@@ -1,0 +1,574 @@
+﻿<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MindSpace | Услуги психологов и коучей</title>
+
+    <!-- Подключение Google Fonts (Inter) -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Подключение Tailwind CSS через CDN -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Подключение Lucide Icons -->
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Настройка Tailwind с пользовательскими стилями -->
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    colors: {
+
+                        primary: '#8B5CF6',
+
+                        secondary: '#10B981',
+
+                        dark: '#050505',
+
+                        'glass-white': 'rgba(255, 255, 255, 0.08)',
+
+                    },
+
+                    fontFamily: {
+
+                        sans: ['Inter', 'sans-serif'],
+
+                    },
+
+                    borderRadius: {
+
+                        'xl': '1rem',
+
+                        '2xl': '1.5rem',
+
+                        '3xl': '2rem',
+
+                        'bento': '2rem',
+
+                    },
+
+                    animation: {
+
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+
+                        'slide-down': 'slideDown 0.8s ease-out forwards',
+
+                        'slide-left': 'slideLeft 0.8s ease-out forwards',
+
+                        'slide-right': 'slideRight 0.8s ease-out forwards',
+
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+
+                        'float': 'float 6s ease-in-out infinite',
+
+                    },
+
+                    keyframes: {
+
+                        fadeIn: {
+
+                            '0%': { opacity: '0' },
+
+                            '100%': { opacity: '1' },
+
+                        },
+
+                        slideUp: {
+
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+
+                        },
+
+                        slideDown: {
+
+                            '0%': { opacity: '0', transform: 'translateY(-30px)' },
+
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+
+                        },
+
+                        slideLeft: {
+
+                            '0%': { opacity: '0', transform: 'translateX(30px)' },
+
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+
+                        },
+
+                        slideRight: {
+
+                            '0%': { opacity: '0', transform: 'translateX(-30px)' },
+
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+
+                        },
+
+                        glow: {
+
+                            '0%': { boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' },
+
+                            '100%': { boxShadow: '0 0 40px rgba(139, 92, 246, 0.6), 0 0 60px rgba(16, 185, 129, 0.3)' },
+
+                        },
+
+                        float: {
+
+                            '0%, 100%': { transform: 'translateY(0)' },
+
+                            '50%': { transform: 'translateY(-20px)' },
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    </script>
+
+    <style>
+
+        /* Дополнительные стили для плавного скролла и анимаций */
+
+        html {
+
+            scroll-behavior: smooth;
+
+            font-family: 'Inter', sans-serif;
+
+            letter-spacing: -0.05em;
+
+        }
+
+        
+
+        body {
+
+            background-color: #050505;
+
+            color: #fff;
+
+            overflow-x: hidden;
+
+        }
+
+        
+
+        /* Стили для Glassmorphism */
+
+        .glass {
+
+            background: rgba(255, 255, 255, 0.05);
+
+            backdrop-filter: blur(10px);
+
+            -webkit-backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+        }
+
+        
+
+        /* Стили для Bento Grid элементов */
+
+        .bento-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(12, 1fr);
+
+            grid-template-rows: repeat(6, auto);
+
+            gap: 1.5rem;
+
+        }
+
+        
+
+        .bento-item {
+
+            border-radius: 2rem;
+
+            overflow: hidden;
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+        }
+
+        
+
+        /* Стили для анимаций появления при скролле */
+
+        .reveal {
+
+            opacity: 0;
+
+            transform: translateY(30px);
+
+            transition: all 0.8s ease-out;
+
+        }
+
+        
+
+        .reveal.active {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+        
+
+        /* Эффект магнитного притяжения для кнопок */
+
+        .magnetic-btn {
+
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        }
+
+        
+
+        .magnetic-btn:hover {
+
+            transform: scale(1.05);
+
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+
+        }
+
+        
+
+        /* Градиентный текст */
+
+        .gradient-text {
+
+            background: linear-gradient(90deg, #8B5CF6, #10B981);
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+
+        }
+
+        
+
+        /* Градиентное свечение */
+
+        .glow-effect {
+
+            position: relative;
+
+        }
+
+        
+
+        .glow-effect::after {
+
+            content: '';
+
+            position: absolute;
+
+            top: -2px;
+
+            left: -2px;
+
+            right: -2px;
+
+            bottom: -2px;
+
+            background: linear-gradient(45deg, #8B5CF6, #10B981, #8B5CF6);
+
+            border-radius: inherit;
+
+            z-index: -1;
+
+            filter: blur(20px);
+
+            opacity: 0;
+
+            transition: opacity 0.5s ease;
+
+        }
+
+        
+
+        .glow-effect:hover::after {
+
+            opacity: 0.7;
+
+        }
+
+        
+
+        /* Анимированный градиентный фон */
+
+        .gradient-bg {
+
+            background: linear-gradient(-45deg, #050505, #0a0a1a, #050505, #0a0a1a);
+
+            background-size: 400% 400%;
+
+            animation: gradientShift 15s ease infinite;
+
+        }
+
+        
+
+        @keyframes gradientShift {
+
+            0% { background-position: 0% 50%; }
+
+            50% { background-position: 100% 50%; }
+
+            100% { background-position: 0% 50%; }
+
+        }
+
+    </style>
+
+</head>
+
+<body class="gradient-bg">
+
+    <!-- Навигация с Glassmorphism эффектом -->
+
+    <nav class="glass fixed top-6 left-1/2 transform -translate-x-1/2 z-50 rounded-2xl py-3 px-6 flex justify-between items-center w-11/12 max-w-6xl">
+
+        <div class="flex items-center space-x-2">
+
+            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+
+                <i data-lucide="brain" class="w-5 h-5 text-white"></i>
+
+            </div>
+
+            <span class="text-xl font-bold tracking-tighter">MindSpace</span>
+
+        </div>
+
+        
+
+        <div class="hidden md:flex space-x-8">
+
+            <a href="#services" class="text-gray-300 hover:text-white transition-colors duration-300">Услуги</a>
+
+            <a href="#about" class="text-gray-300 hover:text-white transition-colors duration-300">О нас</a>
+
+            <a href="#specialists" class="text-gray-300 hover:text-white transition-colors duration-300">Специалисты</a>
+
+            <a href="#reviews" class="text-gray-300 hover:text-white transition-colors duration-300">Отзывы</a>
+
+            <a href="#contact" class="text-gray-300 hover:text-white transition-colors duration-300">Контакты</a>
+
+        </div>
+
+        
+
+        <button class="magnetic-btn glow-effect bg-gradient-to-r from-primary to-secondary text-white font-semibold py-2 px-6 rounded-xl flex items-center space-x-2">
+
+            <span>Записаться</span>
+
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+
+        </button>
+
+    </nav>
+
+
+
+    <!-- Основной контент -->
+
+    <main class="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
+
+        <!-- Герой-секция -->
+
+        <section class="mb-24 text-center">
+
+            <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-6 reveal">
+
+                Психологическая помощь 
+
+                <span class="gradient-text">нового поколения</span>
+
+            </h1>
+
+            
+
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-10 reveal" data-delay="0.2s">
+
+                Индивидуальные и групповые сессии с ведущими психологами и коучами. 
+
+                Преодолейте кризисы, найдите внутреннюю гармонию и достигните своих целей.
+
+            </p>
+
+            
+
+            <div class="flex flex-col sm:flex-row justify-center gap-6 mb-16">
+
+                <button class="magnetic-btn glow-effect bg-gradient-to-r from-primary to-secondary text-white font-semibold py-4 px-10 rounded-2xl text-lg flex items-center justify-center space-x-3 reveal" data-delay="0.4s">
+
+                    <span>Начать путь к себе</span>
+
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+
+                </button>
+
+                
+
+                <button class="magnetic-btn glass text-white font-semibold py-4 px-10 rounded-2xl text-lg flex items-center justify-center space-x-3 reveal" data-delay="0.6s">
+
+                    <span>Бесплатная консультация</span>
+
+                    <i data-lucide="phone-call" class="w-5 h-5"></i>
+
+                </button>
+
+            </div>
+
+            
+
+            <!-- Анимированные элементы -->
+
+            <div class="flex justify-center items-center space-x-10 mb-8">
+
+                <div class="animate-float">
+
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-r from-primary/30 to-secondary/30 flex items-center justify-center">
+
+                        <i data-lucide="heart" class="w-12 h-12 text-white"></i>
+
+                    </div>
+
+                </div>
+
+                
+
+                <div class="animate-float" style="animation-delay: 1s;">
+
+                    <div class="w-32 h-32 rounded-3xl glass flex items-center justify-center border border-white/10">
+
+                        <i data-lucide="brain" class="w-16 h-16 text-primary"></i>
+
+                    </div>
+
+                </div>
+
+                
+
+                <div class="animate-float" style="animation-delay: 2s;">
+
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-r from-primary/30 to-secondary/30 flex items-center justify-center">
+
+                        <i data-lucide="users" class="w-12 h-12 text-white"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- Bento Grid секция с услугами -->
+
+        <section id="services" class="mb-28">
+
+            <h2 class="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-center reveal">
+
+                Наши <span class="gradient-text">услуги</span>
+
+            </h2>
+
+            <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto reveal" data-delay="0.2s">
+
+                Комплексный подход к психическому здоровью и личностному развитию
+
+            </p>
+
+            
+
+            <div class="bento-grid">
+
+                <!-- Первый элемент Bento Grid -->
+
+                <div class="bento-item glass col-span-12 md:col-span-6 lg:col-span-4 row-span-2 p-8 reveal">
+
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-r from-primary to-secondary flex items-center justify-center mb-6">
+
+                        <i data-lucide="brain" class="w-7 h-7 text-white"></i>
+
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4">Психотерапия</h3>
+
+                    <p class="text-gray-300 mb-6">Глубокий анализ и проработка психологических проблем, травм и ограничивающих убеждений.</p>
+
+                    <div class="flex items-center text-primary font-medium">
+
+                        <span>Подробнее</span>
+
+                        <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+
+                    </div>
+
+                </div>
+
+                
+
+                <!-- Второй элемент Bento Grid -->
+
+                <div class="bento-item glass col-span-12 md:col-span-6 lg:col-span-4 row-span-1 p-8 reveal" data-delay="0.2s">
+
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-r from-secondary to-emerald-400 flex items-center justify-center mb-6">
+
+                        <i data-lucide="target" class="w-7 h-7 text-white"></i>
+
+                    </div>
+
+                    <h3 class="text-2xl font-bold mb-4">Коучинг</h3>
+
+                    <p class="text-gray-300">Достижение личных и профессиональных целей с индивидуальным наставником.</p>
+
+                </div>
+
+                
+
+                <!-- Третий элемент Bento Grid -->
+
+
+...
